@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {% load static %}
+    <link  rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet"  href={% static 'css/c/style.css' %}>
+    <link rel="stylesheet"  href={% static 'css/c/bootstrap-datepicker.min.css' %}>
+
+    </script>
+
+
+
+    <title>Received</title>
+
+</head>
+<!-----------------------header------>
+
+<body>
+
+<!----------designe-------->
+<section class="header" id="home">
+  <div class="container-fluid p-1 bg-secondary text-white text-center">
+    <h1>Received Books</h1>
+  </div>
+</section>
+
+<!-----------------------Frame------------->
+
+<section class="container">
+    <div class="frame border border-dark">
+        <div>
+            <input type="text" class="uname" placeholder=" " disabled>
+            <input type="text" class="ucatagory" placeholder=" " disabled>
+        </div>
+
+            <div class="code">
+                <form class="bookid" action="/receivebook/" method="post">
+                    {% csrf_token %}
+                    <!----------------book id----------->
+                    <div class="d-flex">
+                    <label>BOOK_ID:</label>
+                    <input class="ml-1" list="book11" maxlength="6" name="book"  id="bookid" onkeyup="jump001(this, 'ficode')" autofocus/>
+                    <datalist id="book11">
+                        {% for Receivebook in Receivebooks %}
+                        <option value="{{Receivebook.BOOKID}}"></option>
+                        {% endfor %}
+                    </datalist>
+                    </div>
+                    <!-----------------fi code---------------->
+                    <div class="d-flex mt-3">
+                    <label>FI_CODE:</label>
+                    <input class="ml-2" list="fi11" maxlength="6"  name="fi" id="ficode"/>
+                        <datalist id="fi11">
+                            {% for Receivebook in Receivebooks %}
+                            <option value="{{Receivebook.FICODE}}"></option>
+                            {% endfor %}
+                            <option value=" " >  </option>
+                        </datalist>
+
+                    </div>
+                    <div>
+                        <button type="submit"  value="Save" class="dispairity btn btn-primary mt-3" onkeyup="jump001(this, 'home')" >Save</button>
+                        <h5 align="center">{{message}}</h5>
+                    </div>
+                    <!---------------Recevied date------------->
+                    <div class="date" >
+                        <label class="received">Received Date:</label>
+                        <input type="text" autocomplete='off' value="{% now 'd-m-Y' %}" name="date" />
+                    </div>
+                </form>
+
+            </div>
+
+
+            <!--------------------combo box--------------------->
+            <div class="combo">
+                <select>
+                  <!------<option value="" disabled selected>Choose your option</option>-->
+                  <option value="1">View</option>
+                  <option value="2">PDF</option>
+                  <option value="3">Excel</option>
+                  <option value=" "> </option>
+                </select>
+            </div>
+
+        <!-------exit button--------->
+        <div>
+            <button type="submit" value="submit" class="exit btn btn-secondary mt-5">Exit</button>
+        </div>
+
+    </div>
+</section>
+<!---------designe------>
+
+
+<!------------lateset compailed java script-------->
+
+  <script src={% static 'js/popper.min.js' %}></script>
+  <script src={% static 'js/jquery.min.js' %}></script>
+  <script src={% static 'js/bootstrap.bundle.js' %}></script>
+  <script src={% static 'js/bootstrap-datepicker.min.js' %}></script>
+  <script src={% static 'js/bootstrap.min.js' %}></script>
+
+<!-------Enter key bookid ficode ---->
+<script>
+    function jump001(field,autoMove){
+    if (field.value.length >= field.maxLength) {
+    document.getElementById(autoMove).focus()
+    }
+    }
+</script>
+</body>
+</html>
